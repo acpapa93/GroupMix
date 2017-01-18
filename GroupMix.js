@@ -36,7 +36,7 @@ var client_secret= process.env.client_secret,
           this.res.writeHead(200);
           console.log("searching for track only!");
           //search spotify for URI based on track
-          searchTrackOnly(trackQuery);
+          searchTrackOnly(track);
           this.res.end();
       } else {
           console.log("That's not music.");
