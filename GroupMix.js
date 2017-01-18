@@ -19,18 +19,18 @@ var client_secret= process.env.client_secret,
       //cut up the request to get the query
       var reqString = JSON.stringify(request.text);
       var trackTemp = reqString.slice(reqString.indexOf(":") + 1, reqString.lastIndexOf("/"));
-      var trackQuery= trackTemp.replace(/ /g, '+');
+      var track= trackTemp.replace(/ /g, '+');
       var artistTemp = reqString.slice(reqString.lastIndexOf("/") + 1, reqString.lastIndexOf("\"")+1);
-      var artistQuery= artistTemp.replace(/ /g, '+');
+      var artist= artistTemp.replace(/ /g, '+');
 
 
-      console.log(trackQuery, artistQuery);
+      console.log(artist, track);
 
       if (request.text && botRegexT_A.test(request.text)) {
           this.res.writeHead(200);
           console.log("searching for track and artist!");
           //search spotify for URI based on track and artist
-          searchTrack_Artist(trackQuery, artistQuery);
+          searchTrack_Artist(artist, track);
           this.res.end();
       } else if (request.text && botRegexT.test(request.text)) {
           this.res.writeHead(200);
@@ -74,12 +74,12 @@ function auth() {
 }
 
 //search track
-function searchTrackOnly(trackQuery) {
+function searchTrackOnly(track) {
     var options = {
         method: 'GET',
         url: 'https://api.spotify.com/v1/search',
         qs: {
-            q: trackQuery,
+            q: track,
             type: 'track',
             offset: '0',
             limit: '1'
@@ -99,10 +99,10 @@ function searchTrackOnly(trackQuery) {
     });
 }
 
-function searchTrack_Artist(artistQuery, trackQuery) {
+function searchTrack_Artist(artist, track) {
     var options = {
         method: 'GET',
-        url: 'https://api.spotify.com/v1/search?query=artist%3A'+ artistQuery + "&track%3A"+ trackQuery+ "&type=track&offset=0&limit=1",
+        url: 'https://api.spotify.com/v1/search?query=artist%3A'+ artist + "&track%3A"+ track+ "&type=track&offset=0&limit=1",
         headers: {
             'postman-token': '9cf85f4d-cae9-e96d-f79d-d23992122836',
             'cache-control': 'no-cache'
