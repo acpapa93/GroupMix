@@ -105,17 +105,16 @@ function searchTrack_Artist(artist, track) {
         url: 'https://api.spotify.com/v1/search?query=artist%3A' + artist + '&track%3A'+ track + '&type=track&offset=0&limit=1'
       };
 
-
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
 
-        console.log(body.items);
-          parsedURI=JSON.stringify(body.tracks.items.uri);
+        console.log(body);
+      /*    parsedURI=JSON.stringify(body.tracks.items.uri);
           parsedArtist = JSON.stringify(body.tracks.items.artists.name);
           parsedSong = JSON.stringify(body.tracks.items.name);
           successMessage= "Added " + parsedSong + " by " + parsedArtist + ".";
           console.log(parsedURI, parsedArtist, parsedSong);
-        auth();
+        auth();*/
     });
 }
 
