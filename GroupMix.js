@@ -108,14 +108,14 @@ function searchTrack_Artist(artist, track) {
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
 
-        console.log(body);
-      /*    parsedURI=JSON.stringify(body.tracks.items.uri);
-          parsedArtist = JSON.stringify(body.tracks.items.artists.name);
-          parsedSong = JSON.stringify(body.tracks.items.name);
-          successMessage= "Added " + parsedSong + " by " + parsedArtist + ".";
-          console.log(parsedURI, parsedArtist, parsedSong);
-        auth();*/
+
     });
+    parsedURI=JSON.stringify(body.tracks.items.uri);
+     parsedArtist = JSON.stringify(body.tracks.items.artists.name);
+     parsedSong = JSON.stringify(body.tracks.items.name);
+     successMessage= "Added " + parsedSong + " by " + parsedArtist + ".";
+     console.log(parsedURI, parsedArtist, parsedSong);
+     auth();
 }
 
 //addy it to the playlist.
