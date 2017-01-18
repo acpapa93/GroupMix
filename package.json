@@ -1,0 +1,17 @@
+{
+  "name": "groupmix",
+  "version": "1.0.0",
+  "description": "Creates Spoify playlists from within Groupme.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrew Papa",
+  "license": "ISC",
+  "dependencies": {
+    "director": "^1.2.8",
+    "dotenv": "^4.0.0",
+    "express": "^4.14.0",
+    "request": "^2.79.0"
+  }
+}
