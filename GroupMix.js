@@ -137,7 +137,7 @@ function appendTrack(parsedURI, accessToken) {
             authorization: 'Bearer ' + accessToken,
             'content-type': 'application/json'
         },
-        body: {
+        formData: {
             uris: parsedURI
         }
     };
