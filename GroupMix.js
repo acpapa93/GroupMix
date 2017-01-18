@@ -72,7 +72,7 @@ function auth() {
 }
 
 function authParse(authBody){
-  accessToken = parsedAuthBody.access_token;
+  accessToken = authBody.access_token;
   console.log("recieved accessToken: " + accessToken);
   appendTrack(parsedURI, accessToken);
 }
@@ -140,7 +140,7 @@ var options = {
 
 request(options, function (error, response, body) {
   if (error) throw new Error(error);
-  console.log(body);
+  console.log("popped it in the playlist for ya.");
   postMessage(successMessage);
 
 });
