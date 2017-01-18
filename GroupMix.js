@@ -104,7 +104,7 @@ function searchTrack_Artist(artist, track) {
         method: 'GET',
         url: 'https://api.spotify.com/v1/search?query=artist%3A' + artist + '&track%3A'+ track + '&type=track&offset=0&limit=1'
       };
-    }
+
 
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
