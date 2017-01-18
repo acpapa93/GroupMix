@@ -66,13 +66,15 @@ function auth() {
 
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
-         body = JSON.parse(body);
-        authParse(body);
+        console.log(body);
+
     });
+   body = JSON.parse(body);
+   authParse(body);
 }
 
 function authParse(body){
-  accessToken = body.access_token;
+  accessToken = JSON.parse(body.access_token);
   console.log(body.access_token);
   appendTrack(parsedURI, accessToken);
 }
