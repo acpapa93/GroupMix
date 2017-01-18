@@ -138,7 +138,7 @@ function appendTrack(parsedURI, accessToken) {
             'content-type': 'application/json'
         },
         formData: {
-            uris: parsedURI
+            uris: "["+parsedURI+"]"
         }
     };
 
