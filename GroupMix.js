@@ -4,7 +4,7 @@ var request=require("request");
 
 var client_secret= process.env.client_secret,
     refreshToken=process.env.REFRESH_TOKEN,
-    bot_id=process.env.bot_id,
+    bot_ID=process.env.bot_id,
     spotify_user=process.env.spotify_user,
     playlist=process.env.playlist,
     accessToken, body, parsedURI, parsedSong, parsedArtist, successMessage, authBody;
@@ -140,6 +140,7 @@ var options = {
 request(options, function (error, response, body) {
   if (error) throw new Error(error);
   console.log("popped it in the playlist for ya.");
+  console.log(body);
   postMessage(successMessage);
 
 });
