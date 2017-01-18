@@ -2,7 +2,7 @@ var http, director, bot, router, server, port;
 
 http        = require('http');
 director    = require('director');
-bot         = require('./GroupMix.js');
+bot         = require('./GroupMix');
 
 router = new director.http.Router({
   '/' : {
