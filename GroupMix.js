@@ -129,24 +129,28 @@ function parseItParseItRealGood(body){
 
 //addy it to the playlist.
 
-function appendTrack(parsedURI, accessToken){
-var options = {
-  method: 'POST',
-  url: 'https://api.spotify.com/v1/users/' + spotify_user +'/playlists/'+playlist+'/tracks/',
-  headers:
-   { 'postman-token': '6a207873-0f36-ca7d-9a11-c277979720e1',
-     'cache-control': 'no-cache',
-     authorization: 'Bearer ' + accessToken,
-     'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' },
-  formData: { uris: parsedURI } };
+function appendTrack(parsedURI, accessToken) {
+    var options = {
+        method: 'POST',
+        url: 'https://api.spotify.com/v1/users/' + spotify_user + '/playlists/' + playlist + '/tracks/',
+        headers: {
+            'postman-token': '6a207873-0f36-ca7d-9a11-c277979720e1',
+            'cache-control': 'no-cache',
+            authorization: 'Bearer ' + accessToken,
+            'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
+        },
+        body: {
+            uris: parsedURI
+        }
+    };
 
-request(options, function (error, response, body) {
-  if (error) throw new Error(error);
-  console.log("popped it in the playlist for ya.");
-  console.log(body);
-  postMessage(successMessage);
+    request(options, function(error, response, body) {
+        if (error) throw new Error(error);
+        console.log("popped it in the playlist for ya.");
+        console.log(body);
+        postMessage(successMessage);
 
-});
+    });
 }
 
 function postMessage(successMessage) {
