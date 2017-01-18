@@ -92,7 +92,7 @@ function searchTrackOnly(track) {
 
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
-        body=body;
+        body=JSON.parse(body);
         console.log("parsing time!");
         parseItParseItRealGood(body);
     });
@@ -106,14 +106,13 @@ function searchTrack_Artist(artist, track) {
 
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
-        body=body;
+        body=JSON.parse(body);
         console.log("parsing time!");
         parseItParseItRealGood(body);
     });
 }
 
 function parseItParseItRealGood(body){
-    console.log(body.tracks);
     parsedURI=body.tracks.items[0].uri;
     parsedArtist = body.tracks.items[0].artists[0].name;
     parsedSong = body.tracks.items[0].name;
