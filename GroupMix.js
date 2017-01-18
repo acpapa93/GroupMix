@@ -109,11 +109,10 @@ function searchTrack_Artist(artist, track) {
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
 
-        parsedBody = JSON.parse(body.items);
-        console.log(parsedBody.items);
-          parsedURI=JSON.stringify(parsedBody.tracks.items.uri);
-          parsedArtist = JSON.stringify(parsedBody.tracks.items.artists.name);
-          parsedSong = JSON.stringify(parsedBody.tracks.items.name);
+        console.log(body.items);
+          parsedURI=JSON.stringify(body.tracks.items.uri);
+          parsedArtist = JSON.stringify(body.tracks.items.artists.name);
+          parsedSong = JSON.stringify(body.tracks.items.name);
           successMessage= "Added " + parsedSong + " by " + parsedArtist + ".";
           console.log(parsedURI, parsedArtist, parsedSong);
         auth();
