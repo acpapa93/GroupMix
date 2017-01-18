@@ -98,33 +98,26 @@ function searchTrackOnly(track) {
         searchParse(parsedBody);
     });
 }
-var url;
+
 function searchTrack_Artist(artist, track) {
     var options = {
         method: 'GET',
         url: 'https://api.spotify.com/v1/search?query=artist%3A' + artist + '&track%3A'+ track + '&type=track&offset=0&limit=1'
       };
-      console.log("Address we hittin': "+url);
 
 
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
-        console.log("searched for the track and artist");
-        parsedBody = JSON.parse(body);
-        console.log(parsedBody);
-        searchParse(parsedBody);
+
+        parsedBody = JSON.parse(body.items);
+        console.log(parsedBody.items);
+          parsedURI=JSON.stringify(parsedBody.tracks.items.uri);
+          parsedArtist = JSON.stringify(parsedBody.tracks.items.artists.name);
+          parsedSong = JSON.stringify(parsedBody.tracks.items.name);
+          successMessage= "Added " + parsedSong + " by " + parsedArtist + ".";
+          console.log(parsedURI, parsedArtist, parsedSong);
+        auth();
     });
-}
-
-
-//parse out the response
-function searchParse (parsedBody){
-  parsedURI=parsedBody.tracks.items.uri;
-  parsedArtist = parsedBody.tracks.items.artists.name;
-  parsedSong = parsedBody.tracks.items.name;
-  successMessage= "Added " + parsedSong + " by " + parsedArtist + ".";
-  console.log(parsedURI, parsedArtist, parsedSong);
-  auth();
 }
 
 //addy it to the playlist.
