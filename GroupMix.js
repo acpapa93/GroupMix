@@ -7,7 +7,7 @@ var client_secret= process.env.client_secret,
     bot_id=process.env.bot_id,
     spotify_user=process.env.spotify_user,
     playlist=process.env.playlist,
-    accessToken, body, parsedURI, parsedSong, parsedArtist, successMessage;
+    accessToken, body, parsedURI, parsedSong, parsedArtist, successMessage, authBody;
 
 
     function respond() {
@@ -66,11 +66,15 @@ function auth() {
 
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
-        var parsedAuthBody = JSON.parse(body);
-        accessToken = parsedAuthBody.access_token;
-        console.log("recieved accessToken: " + accessToken);
-        appendTrack(queryURI, accessToken);
+         authBody = JSON.parse(body);
+        authParse(authBody);
     });
+}
+
+function authParse(authBody){
+  accessToken = parsedAuthBody.access_token;
+  console.log("recieved accessToken: " + accessToken);
+  appendTrack(parsedURI, accessToken);
 }
 
 //search track
@@ -117,7 +121,7 @@ function parseItParseItRealGood(body){
     parsedArtist = body.tracks.items[0].artists[0].name;
     parsedSong = body.tracks.items[0].name;
     successMessage= "Added " + parsedSong + " by " + parsedArtist + ".";
-    console.log(parsedURI, parsedArtist, parsedSong);
+    console.log("all parsed up -- I speak parse...l tongue. GET IT?");
     auth();
 }
 
@@ -136,15 +140,13 @@ var options = {
 
 request(options, function (error, response, body) {
   if (error) throw new Error(error);
-
   console.log(body);
-
   postMessage(successMessage);
 
 });
 }
 
-function postMessage() {
+function postMessage(successMessage) {
   var botResponse, options, body, botReq;
 
   botResponse = successMessage;
