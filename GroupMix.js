@@ -73,7 +73,6 @@ function auth() {
 
 function authParse(authBody){
   accessToken = authBody.access_token;
-  console.log("recieved accessToken: " + accessToken);
   appendTrack(parsedURI, accessToken);
 }
 
@@ -127,7 +126,7 @@ function parseItParseItRealGood(body){
 
 //addy it to the playlist.
 
-function appendTrack(queryURI, accessToken){
+function appendTrack(parsedURI, accessToken){
 var options = {
   method: 'POST',
   url: 'https://api.spotify.com/v1/users/' + spotify_user +'/playlists/'+playlist+'/tracks/',
@@ -136,7 +135,7 @@ var options = {
      'cache-control': 'no-cache',
      authorization: 'Bearer ' + accessToken,
      'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' },
-  formData: { uris: parsedUri } };
+  formData: { uris: parsedURI } };
 
 request(options, function (error, response, body) {
   if (error) throw new Error(error);
