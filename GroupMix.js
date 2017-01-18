@@ -115,12 +115,12 @@ function searchTrack_Artist(artist, track) {
 
 function parseItParseItRealGood(body){
   console.log(body);
-  parsedURI=JSON.stringify(body.tracks.items.uri);
-   parsedArtist = JSON.stringify(body.tracks.items.artists.name);
-   parsedSong = JSON.stringify(body.tracks.items.name);
-   successMessage= "Added " + parsedSong + " by " + parsedArtist + ".";
-   console.log(parsedURI, parsedArtist, parsedSong);
-   auth();
+    parsedURI=body.tracks.items.uri;
+    parsedArtist = body.tracks.items.artists.name;
+    parsedSong = body.tracks.items.name;
+    successMessage= "Added " + parsedSong + " by " + parsedArtist + ".";
+    console.log(parsedURI, parsedArtist, parsedSong);
+    auth();
 }
 
 //addy it to the playlist.
