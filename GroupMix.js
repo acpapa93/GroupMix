@@ -28,7 +28,7 @@ var client_secret= process.env.client_secret,
 
       if (request.text && botRegexT_A.test(request.text)) {
           this.res.writeHead(200);
-          console.log("message parsed: track and artist query");
+          console.log("message received: track and artist query");
           //search spotify for URI based on track and artist
           searchTrack_Artist(artist, track);
           this.res.end();
@@ -107,15 +107,19 @@ function searchTrack_Artist(artist, track) {
 
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
-
-
+        console.log(body);
+        console.log("parsing time!");
+        parseItParseItRealGood(body);
     });
-    parsedURI=JSON.stringify(body.tracks.items.uri);
-     parsedArtist = JSON.stringify(body.tracks.items.artists.name);
-     parsedSong = JSON.stringify(body.tracks.items.name);
-     successMessage= "Added " + parsedSong + " by " + parsedArtist + ".";
-     console.log(parsedURI, parsedArtist, parsedSong);
-     auth();
+}
+
+function parseItParseItRealGood(body){
+  parsedURI=JSON.stringify(body.tracks.items.uri);
+   parsedArtist = JSON.stringify(body.tracks.items.artists.name);
+   parsedSong = JSON.stringify(body.tracks.items.name);
+   successMessage= "Added " + parsedSong + " by " + parsedArtist + ".";
+   console.log(parsedURI, parsedArtist, parsedSong);
+   auth();
 }
 
 //addy it to the playlist.
