@@ -7,7 +7,7 @@ var client_secret= process.env.client_secret,
     bot_id=process.env.bot_id,
     spotify_user=process.env.spotify_user,
     playlist=process.env.playlist,
-    accessToken, parsedURI, parsedSong, parsedArtist, successMessage;
+    accessToken, parsedBody, parsedURI, parsedSong, parsedArtist, successMessage;
 
 
     function respond() {
@@ -23,11 +23,13 @@ var client_secret= process.env.client_secret,
 
       if (request.text && botRegexT_A.test(request.text)) {
           this.res.writeHead(200);
+          console.log("searching for track and artist!");
           //search spotify for URI based on track and artist
           searchTrack_Artist(trackQuery, artistQuery);
           this.res.end();
       } else if (request.text && botRegexT.test(request.text)) {
           this.res.writeHead(200);
+          console.log("searching for track only!");
           //search spotify for URI based on track
           searchTrackOnly(trackQuery);
           this.res.end();
@@ -58,8 +60,8 @@ function auth() {
 
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
-        var parsedBody = JSON.parse(body);
-        accessToken = parsedBody.access_token;
+        var parsedAuthBody = JSON.parse(body);
+        accessToken = parsedAuthBody.access_token;
         console.log("recieved accessToken: " + accessToken);
         appendTrack(queryURI, accessToken);
     });
@@ -84,8 +86,9 @@ function searchTrackOnly(trackQuery) {
 
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
-
-        var parsedBody = JSON.parse(body);
+        console.log("searched for track and found some result");
+        parsedBody = JSON.parse(body);
+        console.log(parsedBody);
         searchParse(parsedBody);
     });
 }
@@ -108,7 +111,9 @@ function searchTrack_Artist(artistQuery, trackQuery) {
 
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
-        var parsedBody = JSON.parse(body);
+        console.log("searched for the track and artist");
+        parsedBody = JSON.parse(body);
+        console.log(parsedBody);
         searchParse(parsedBody);
     });
 }
@@ -120,6 +125,7 @@ function searchParse (parsedBody){
   parsedArtist = parsedBody.tracks.items.artists.name;
   parsedSong = parsedBody.tracks.items.name;
   successMessage= "Added " + parsedSong + " by " + parsedArtist + ".";
+  console.log(parsedURI, parsedArtist, parsedSong);
   auth();
 }
 
