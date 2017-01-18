@@ -2,7 +2,7 @@ var https = require("https");
 var request=require("request");
 
 
-var secret= process.env.secret,
+var client_secret= process.env.client_secret,
     refreshToken=process.env.REFRESH_TOKEN,
     bot_id=process.env.bot_id,
     spotify_user=process.env.spotify_user,
@@ -48,7 +48,7 @@ function auth() {
             'postman-token': '76504f58-bc64-b4fd-0bf0-1f81a055cb18',
             'cache-control': 'no-cache',
             'content-type': 'application/x-www-form-urlencoded',
-            authorization: 'Basic' + secret
+            authorization: 'Basic' + client_secret
         },
         form: {
             grant_type: 'refresh_token',
