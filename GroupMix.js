@@ -73,6 +73,7 @@ function auth() {
 
 function authParse(authBody){
   accessToken = authBody.access_token;
+  console.log(authBody.access_token);
   appendTrack(parsedURI, accessToken);
 }
 
