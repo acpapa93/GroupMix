@@ -1,5 +1,4 @@
 var HTTPS = require("https");
-require("dotenv").load();
 var request=require("request");
 
 
