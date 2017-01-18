@@ -66,11 +66,10 @@ function auth() {
 
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
-        console.log(body);
+        console.log(JSON.parse(body));
 
     });
-   body = JSON.parse(body);
-   authParse(body);
+//   authParse(body);
 }
 
 function authParse(body){
