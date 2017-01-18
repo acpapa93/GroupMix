@@ -20,7 +20,7 @@ var client_secret= process.env.client_secret,
       var reqString = JSON.stringify(request.text);
       var trackTemp = reqString.slice(reqString.indexOf(":") + 1, reqString.lastIndexOf("/"));
       var track= trackTemp.replace(/ /g, '+');
-      var artistTemp = reqString.slice(reqString.lastIndexOf("/") + 1, reqString.lastIndexOf("\"")+1);
+      var artistTemp = reqString.slice(reqString.lastIndexOf("/") + 1, reqString.lastIndexOf("\""));
       var artist= artistTemp.replace(/ /g, '+');
 
 
