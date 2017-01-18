@@ -56,7 +56,7 @@ function auth() {
             'postman-token': '76504f58-bc64-b4fd-0bf0-1f81a055cb18',
             'cache-control': 'no-cache',
             'content-type': 'application/x-www-form-urlencoded',
-            authorization: 'Basic' + client_secret
+            authorization: 'Basic ' + client_secret
         },
         form: {
             grant_type: 'refresh_token',
