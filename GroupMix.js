@@ -27,7 +27,7 @@ var secret= process.env.secret,
           searchTrack_Artist(trackQuery, artistQuery);
           this.res.end();
       } else if (request.text && botRegexT.test(request.text)) {
-          this.res.writehead(200);
+          this.res.writeHead(200);
           //search spotify for URI based on track
           searchTrackOnly(trackQuery);
           this.res.end();
