@@ -113,6 +113,7 @@ function searchTrack_Artist(artist, track) {
 }
 
 function parseItParseItRealGood(body){
+    console.log(body.tracks);
     parsedURI=body.tracks.items[0].uri;
     parsedArtist = body.tracks.items[0].artists[0].name;
     parsedSong = body.tracks.items[0].name;
