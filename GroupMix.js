@@ -19,7 +19,7 @@ var client_secret= process.env.client_secret,
       //cut up the request to get the query
       var reqString = JSON.stringify(request.text);
       var trackQuery = reqString.slice(reqString.indexOf(":") + 1, reqString.lastIndexOf("/"));
-      var artistQuery = reqString.slice(reqString.lastIndexOf("/") + 1, reqString.length-1);
+      var artistQuery = reqString.slice(reqString.lastIndexOf("/") + 1, reqString.lastIndexOf("\"")-1);
       console.log(trackQuery, artistQuery);
 
       if (request.text && botRegexT_A.test(request.text)) {
