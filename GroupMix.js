@@ -162,7 +162,7 @@ function postMessage(successMessage) {
     "text" : botResponse
   };
 
-  console.log('sending ' + botResponse + ' to ' + botID);
+  console.log('sending ' + botResponse + ' to ' + bot_ID);
 
   botReq = https.request(options, function(res) {
       if(res.statusCode == 202) {
