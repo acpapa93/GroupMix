@@ -92,10 +92,9 @@ function searchTrackOnly(track) {
 
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
-        console.log("searched for track and found some result");
-        parsedBody = JSON.parse(body);
-        console.log(parsedBody);
-        searchParse(parsedBody);
+        body=body;
+        console.log("parsing time!");
+        parseItParseItRealGood(body);
     });
 }
 
@@ -114,10 +113,9 @@ function searchTrack_Artist(artist, track) {
 }
 
 function parseItParseItRealGood(body){
-  console.log(body);
-    parsedURI=body.tracks.items.uri;
-    parsedArtist = body.tracks.items.artists.name;
-    parsedSong = body.tracks.items.name;
+    parsedURI=body.tracks.items[0].uri;
+    parsedArtist = body.tracks.items[0].artists[0].name;
+    parsedSong = body.tracks.items[0].name;
     successMessage= "Added " + parsedSong + " by " + parsedArtist + ".";
     console.log(parsedURI, parsedArtist, parsedSong);
     auth();
