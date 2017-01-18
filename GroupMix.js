@@ -17,9 +17,10 @@ var client_secret= process.env.client_secret,
           //command would be /add:song
           botRegexT = /^\/add:.+[^\/]$/;
       //cut up the request to get the query
-      var reqString = request.toString();
+      var reqString = JSON.stringify(request);
       var trackQuery = reqString.slice(reqString.indexOf(":") + 1, reqString.lastIndexOf("/"));
       var artistQuery = reqString.slice(reqString.lastIndexOf("/") + 1, reqString.length);
+      console.log(trackQuery, artistQuery);
 
       if (request.text && botRegexT_A.test(request.text)) {
           this.res.writeHead(200);
@@ -39,6 +40,7 @@ var client_secret= process.env.client_secret,
           this.res.end();
       }
   }
+
 
 //get authorized for Spotify
 //authorization field below is basic + base64 encoded client id and client secret
