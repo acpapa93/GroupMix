@@ -7,7 +7,7 @@ var client_secret= process.env.client_secret,
     bot_id=process.env.bot_id,
     spotify_user=process.env.spotify_user,
     playlist=process.env.playlist,
-    accessToken, parsedBody, parsedURI, parsedSong, parsedArtist, successMessage;
+    accessToken, body, parsedURI, parsedSong, parsedArtist, successMessage;
 
 
     function respond() {
@@ -107,13 +107,14 @@ function searchTrack_Artist(artist, track) {
 
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
-        console.log(body);
+        body=body;
         console.log("parsing time!");
         parseItParseItRealGood(body);
     });
 }
 
 function parseItParseItRealGood(body){
+  console.log(body);
   parsedURI=JSON.stringify(body.tracks.items.uri);
    parsedArtist = JSON.stringify(body.tracks.items.artists.name);
    parsedSong = JSON.stringify(body.tracks.items.name);
