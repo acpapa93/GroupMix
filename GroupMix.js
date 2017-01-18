@@ -28,7 +28,7 @@ var client_secret= process.env.client_secret,
 
       if (request.text && botRegexT_A.test(request.text)) {
           this.res.writeHead(200);
-          console.log("searching for track and artist!");
+          console.log("message parsed: track and artist query");
           //search spotify for URI based on track and artist
           searchTrack_Artist(artist, track);
           this.res.end();
@@ -98,12 +98,13 @@ function searchTrackOnly(track) {
         searchParse(parsedBody);
     });
 }
-
+var url;
 function searchTrack_Artist(artist, track) {
     var options = {
         method: 'GET',
         url: 'https://api.spotify.com/v1/search?query=artist%3A' + artist + '&track%3A'+ track + '&type=track&offset=0&limit=1'
       };
+      console.log("Address we hittin': "+url);
 
 
     request(options, function(error, response, body) {
