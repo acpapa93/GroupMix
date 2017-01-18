@@ -102,13 +102,7 @@ function searchTrackOnly(trackQuery) {
 function searchTrack_Artist(artistQuery, trackQuery) {
     var options = {
         method: 'GET',
-        url: 'https://api.spotify.com/v1/search',
-        qs: {
-            q: 'artist:' + artistQuery + "track:" + trackQuery,
-            type: 'track',
-            offset: '0',
-            limit: '1'
-        },
+        url: 'https://api.spotify.com/v1/search?query=artist%3A'+ artistQuery + "track%3A"+ trackQuery+ "&type=track&offset=0&limit=1",
         headers: {
             'postman-token': '9cf85f4d-cae9-e96d-f79d-d23992122836',
             'cache-control': 'no-cache'
