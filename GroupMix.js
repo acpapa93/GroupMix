@@ -67,13 +67,14 @@ function auth() {
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
         console.log(JSON.parse(body));
+        body=JSON.parse(body);
         authParse(body);
 
     });
 }
 
 function authParse(body){
-  accessToken = JSON.parse(body.access_token);
+  accessToken = body.access_token;
   console.log(body.access_token);
   appendTrack(parsedURI, accessToken);
 }
