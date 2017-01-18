@@ -102,12 +102,9 @@ function searchTrackOnly(track) {
 function searchTrack_Artist(artist, track) {
     var options = {
         method: 'GET',
-        url: 'https://api.spotify.com/v1/search?query=artist%3A'+ artist + "&track%3A"+ track+ "&type=track&offset=0&limit=1",
-        headers: {
-            'postman-token': '9cf85f4d-cae9-e96d-f79d-d23992122836',
-            'cache-control': 'no-cache'
-        }
-    };
+        url: 'https://api.spotify.com/v1/search?query=artist%3A' + artist + '&track%3A'+ track + '&type=track&offset=0&limit=1'
+      };
+    }
 
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
