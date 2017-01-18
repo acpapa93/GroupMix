@@ -1,4 +1,4 @@
-var HTTPS = require("https");
+var https = require("https");
 var request=require("request");
 
 
@@ -164,7 +164,7 @@ function postMessage() {
 
   console.log('sending ' + botResponse + ' to ' + botID);
 
-  botReq = HTTPS.request(options, function(res) {
+  botReq = https.request(options, function(res) {
       if(res.statusCode == 202) {
         //neat
       } else {

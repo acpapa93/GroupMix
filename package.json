@@ -9,8 +9,8 @@
   "author": "Andrew Papa",
   "license": "ISC",
   "dependencies": {
-    "director": "^1.2.8",
-    "express": "^4.14.0",
-    "request": "^2.79.0"
+    "director": "",
+    "express": "4.14",
+    "request": "^2.79.x"
   }
 }
