@@ -179,9 +179,9 @@ request (options, function (error, response, body){
 }
 
 function albumParse(body){
-  albumLink=body.album.image[3]["#text"];
+  message=body.album.image[3]["#text"];
   console.log("got the art");
-  postAlbum(albumLink);
+  postAlbum(message);
 }
 
 //-------module for clearing the last song from the list-----------
@@ -258,8 +258,8 @@ function clearTheLast(snapshot_id, accessToken, lastTrack){
       if (error) throw new Error(error);
       console.log("deleted the lastone");
       console.log(body);
-      successMessage="Deleted the last song for you.";
-      postMessage(successMessage);
+      message="Deleted the last song for you.";
+      postAlbum(message);
   });
 }
 //-------------------------------------
@@ -299,10 +299,11 @@ function postMessage(successMessage) {
     botReq.end(JSON.stringify(body), getAlbumArt(parsedArtist, parsedAlbum));
 }
 
-function postAlbum(albumLink) {
+
+function postAlbum(message) {
     var botResponse, options, body, botReq;
 
-    botResponse = albumLink;
+    botResponse = message;
 
     options = {
         hostname: 'api.groupme.com',
