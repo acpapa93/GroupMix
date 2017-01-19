@@ -112,8 +112,13 @@ function searchTrackOnly(track) {
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
         body = JSON.parse(body);
+        if(body.tracks.total===0){
+          message="Your search yeilded no results. Try again!";
+          postAlbum(message);
+        } else{
         console.log("parsing time!");
         parseItParseItRealGood(body);
+      }
     });
 }
 function searchTrack_Artist(artist, track) {
@@ -129,13 +134,14 @@ function searchTrack_Artist(artist, track) {
         body = JSON.parse(body);
         console.log(body);
 //check to see if search yeilded no results:
+
         if (body.tracks.total===0){
           message="Your search yeilded no results. Try searching by track only.";
           postAlbum(message);
-        }
-
+        } else {
         console.log("parsing time! Heyooo");
         parseItParseItRealGood(body);
+      }
     });
 }
 
