@@ -32,7 +32,7 @@ function respond() {
         var artistTemp = reqString.slice(reqString.lastIndexOf("/") + 1, reqString.lastIndexOf("\""));
         artist = artistTemp.replace(/ /g, '+');
 
-        console.log("searching for: " + track + "by" + artist);
+        console.log("searching for: " + track + " by " + artist);
 
         //search spotify for URI based on track and artist
         searchTrack_Artist(artist, track);
@@ -126,6 +126,7 @@ function searchTrack_Artist(artist, track) {
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
         body = JSON.parse(body);
+        console.log(body);
         console.log("parsing time! Heyooo");
         parseItParseItRealGood(body);
     });
@@ -258,6 +259,7 @@ function getURI(spotify_user, playlist, accessToken, lastTrack){
       if (error) throw new Error(error);
       console.log("successfully called for the last tracks URI");
       body=JSON.parse(body);
+      console.log(body);
       parseLastURI(body);
 });
 }
