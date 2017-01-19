@@ -23,7 +23,7 @@ var client_secret= process.env.client_secret,
       var artistTemp = reqString.slice(reqString.lastIndexOf("/") + 1, reqString.lastIndexOf("\""));
       var artist= artistTemp.replace(/ /g, '+');
 
-
+      console.log(artist);
       console.log(track);
 
       if (request.text && botRegexT_A.test(request.text)) {
@@ -36,7 +36,7 @@ var client_secret= process.env.client_secret,
           this.res.writeHead(200);
           console.log(track);
           //search spotify for URI based on track
-          searchTrackOnly(track);
+        //  searchTrackOnly(track);
           this.res.end();
       } else {
           console.log("That's not music.");
