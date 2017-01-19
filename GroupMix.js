@@ -8,6 +8,7 @@ var client_secret = process.env.client_secret,
     spotify_user = process.env.spotify_user,
     playlist = process.env.playlist,
     lastFMAPI=process.env.lastFMAPIKey,
+    andrew=process.env.andrew,
     accessToken, body, parsedURI, parsedSong, parsedArtist, parsedAlbum,
     successMessage, authBody, payload, albumLink, snapshot_id, lastTrack;
 
@@ -19,7 +20,8 @@ function respond() {
         // command would be /add:song/artist
         botRegexT_A = /^\/add:.+\/.+$/,
         //command would be /add:song
-        botRegexT = /^\/add:.+[^\/]$/;
+        botRegexT = /^\/add:.+[^\/]$/,
+        botRegexClear=/^\/clear$/;
 
     if (request.text && botRegexT_A.test(request.text)) {
         this.res.writeHead(200);
@@ -47,11 +49,11 @@ function respond() {
         //search spotify for URI based on track
         searchTrackOnly(track);
         this.res.end();
-    } else if (request.test && botRegex_clear.test(request.text)){
+    } else if (botRegexClear.test(request.text) && request.name==andrew){
       this.res.writeHead(200);
       console.log("starting process to delete last track");
       //start clearing the last track.
-
+      auth4Clear();
       this.res.end();
     } else {
         console.log("That's not music.");
