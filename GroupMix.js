@@ -237,12 +237,13 @@ function getPlaylist(spotify_user, playlist, accessToken) {
 }
 
 var lastTrack;
-var lastTrackArr = [];
+var lastTrackArr;
 var lastURI;
 
 function parseSnapshot(body) {
     snapshot_id = body.snapshot_id;
     lastTrack = body.tracks.total - 1;
+    var lastTrackArr = [];
     lastTrackArr.push(body.tracks.total - 1);
     getURIForLastSong(lastTrack, accessToken);
 }
