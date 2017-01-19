@@ -245,9 +245,9 @@ function parseSnapshot(body){
   lastTrackArr.push(body.tracks.total-1);
 //"positions": lastTrackArr}
   trackPayload=JSON.stringify({
-    tracks: {"positions": lastTrackArr},
-    "snapshot_id": snapshot_id
-  });
+    tracks : ([{"positions": lastTrackArr}]),
+  "snapshot_id": snapshot_id
+});
 
   clearTheLast(snapshot_id, trackPayload, accessToken);
 }
@@ -262,6 +262,7 @@ function clearTheLast(snapshot_id, accessToken, trackPayload){
     },
     body: trackPayload
   };
+
 
   request(options, function(error, response, body) {
       if (error) {
