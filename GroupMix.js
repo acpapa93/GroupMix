@@ -89,10 +89,6 @@ function searchTrackOnly(track) {
             type: 'track',
             offset: '0',
             limit: '1'
-        },
-        headers: {
-            'postman-token': 'a9bc10bb-a9bc-d7bd-17a0-912db9f8483a',
-            'cache-control': 'no-cache'
         }
     };
 
