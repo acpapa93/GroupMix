@@ -256,12 +256,12 @@ function clearTheLast(snapshot_id, lastTrackArr, accessToken) {
         headers: {
             authorization: 'Bearer ' + accessToken,
         },
-        body: {
+        body: JSON.stringify({
             "tracks": {
                 "positions": lastTrackArr
             },
             "snapshot_id": snapshot_id
-        }
+        })
     };
 
 
