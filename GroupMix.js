@@ -125,8 +125,6 @@ function parseItParseItRealGood(body){
     successMessage= "Added " + parsedSong + " by " + parsedArtist + ".";
     console.log("all parsed up -- I speak parse...l tongue. GET IT?");
     //configure the payload
-    payload=JSON.stringify({"uris":parsedURI});
-    console.log(payload);
     auth();
 }
 
@@ -140,7 +138,9 @@ function appendTrack(parsedURI, accessToken, payload) {
             authorization: 'Bearer ' + accessToken,
             'content-type': 'application/json'
         },
-        formData: payload
+        body: {
+          "uris": parsedURI
+        }
     };
 
     request(options, function(error, response, body) {
