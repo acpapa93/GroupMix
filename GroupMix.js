@@ -150,7 +150,6 @@ function appendTrack(parsedURI, accessToken) {
         console.log("popped it in the playlist for ya.");
         console.log(body);
         postMessage(successMessage);
-        getAlbumArt(parsedArtist, parsedAlbum);
     });
 }
 
@@ -209,7 +208,7 @@ function postMessage(successMessage) {
     botReq.on('timeout', function(err) {
         console.log('timeout posting message ' + JSON.stringify(err));
     });
-    botReq.end(JSON.stringify(body));
+    botReq.end(JSON.stringify(body), getAlbumArt(parsedArtist, parsedAlbum));
 }
 
 function postAlbum(albumLink) {
