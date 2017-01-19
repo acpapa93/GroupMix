@@ -214,7 +214,7 @@ function auth4Clear() {
 function auth4ClearParse(body) {
     accessToken = body.access_token;
     console.log(body.access_token);
-    getPlaylist(spotify_user, playlsit, accessToken);
+    getPlaylist(spotify_user, playlist, accessToken);
 }
 
 function getPlaylist(spotify_user, playlist, accessToken){
