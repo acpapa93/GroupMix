@@ -124,7 +124,12 @@ function searchTrack_Artist(artist, track) {
     };
 
     request(options, function(error, response, body) {
-        if (error) throw new Error(error);
+        if (error) {
+          console.log (error);
+        } else if (body.tracks.total===0){
+          message="No results found, try searching with only a track name";
+          postAlbum(message);
+        }
         body = JSON.parse(body);
         console.log(body);
         console.log("parsing time! Heyooo");
@@ -300,6 +305,8 @@ function clearTheLast(snapshot_id, lastTrackArr, accessToken, uriForLastSong) {
         postAlbum(message);
     });
 }
+
+
 //-------------------------------------
 
 function postMessage(successMessage) {
