@@ -234,9 +234,10 @@ function getPlaylist(spotify_user, playlist, accessToken){
   });
 }
 
+var lastTrack = [];
 function parseSnapshot(body){
   snapshot_id=body.snapshot_id;
-  lastTrack=body.tracks.total-1;
+  lastTrack.push(body.tracks.total-1);
   console.log(lastTrack);
   clearTheLast(snapshot_id, accessToken, lastTrack);
 }
