@@ -119,7 +119,7 @@ function searchTrack_Artist(artist, track) {
 }
 
 function parseItParseItRealGood(body){
-    parsedURI=body.tracks.items[0].uri;
+    parsedURI = encodeURI(body.tracks.items[0].uri);
     parsedArtist = body.tracks.items[0].artists[0].name;
     parsedSong = body.tracks.items[0].name;
     successMessage= "Added " + parsedSong + " by " + parsedArtist + ".";
@@ -138,7 +138,7 @@ function appendTrack(parsedURI, accessToken, payload) {
             authorization: 'Bearer ' + accessToken,
             'content-type': 'application/json'
         },
-        body: JSON.stringify({
+        form: JSON.stringify({
           "uris": parsedURI
         })
     };
