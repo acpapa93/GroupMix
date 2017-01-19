@@ -268,7 +268,7 @@ function getURIForLastSong(lastTrack, accessToken) {
 
 var uriForLastSong;
 function parseURIForLastSong(body){
-  uriForLastSong = body.items.track.uri;
+  uriForLastSong = body.items[0].track.uri;
   clearTheLast(snapshot_id, lastTrackArr, accessToken, uriForLastSong);
 }
 
