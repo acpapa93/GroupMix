@@ -243,9 +243,12 @@ function parseSnapshot(body){
   snapshot_id=body.snapshot_id;
   lastTrack=body.tracks.total-1;
   lastTrackArr.push(body.tracks.total-1);
-  trackPayload=JSON.stringify(
-    {"positions": lastTrackArr}
-  );
+//"positions": lastTrackArr}
+  trackPayload=JSON.stringify({
+    tracks: [{"positions": lastTrackArr}],
+    "snapshot_id": snapshot_id
+  });
+
   clearTheLast(snapshot_id, trackPayload, accessToken);
 }
 
@@ -257,10 +260,7 @@ function clearTheLast(snapshot_id, accessToken, trackPayload){
     headers:{
       authorization: 'Bearer ' + accessToken,
     },
-    body: {
-      tracks: trackPayload,
-      "snapshot_id": snapshot_id
-      }
+    body: trackPayload
   };
 
   request(options, function(error, response, body) {
