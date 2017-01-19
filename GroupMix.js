@@ -109,7 +109,7 @@ function searchTrack_Artist(artist, track) {
     request(options, function(error, response, body) {
         if (error) throw new Error(error);
         body=JSON.parse(body);
-        console.log("parsing time!");
+        console.log("parsing time! Heyooo");
         parseItParseItRealGood(body);
     });
 }
