@@ -265,7 +265,7 @@ function getURI(spotify_user, playlist, accessToken, lastTrack){
 }
 
 function parseLastURI(body){
-  lastURI=body.item[0].track.uri;
+  lastURI=body.items[0].track.uri;
   console.log("got the last track's URI parsed and ready");
   clearTheLast(snapshot_id, accessToken, lastTrackArr, lastURI);
 
