@@ -138,9 +138,9 @@ function appendTrack(parsedURI, accessToken, payload) {
             authorization: 'Bearer ' + accessToken,
             'content-type': 'application/json'
         },
-        body: {
+        body: JSON.stringify({
           "uris": parsedURI
-        }
+        })
     };
 
     request(options, function(error, response, body) {
