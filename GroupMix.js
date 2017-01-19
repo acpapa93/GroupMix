@@ -277,9 +277,8 @@ function clearTheLast(snapshot_id, accessToken, lastTrackArr, lastURI){
     url:"https://api.spotify.com/v1/users/"+spotify_user+"/playlists/"+playlist+"/tracks",
     headers:{
       authorization: 'Bearer ' + accessToken,
-      "content-type": "application/json"
     },
-    data={
+    body: {
       "tracks": [{"uri": lastURI, "positions": lastTrackArr}],
       "snapshot_id": snapshot_id
       }
