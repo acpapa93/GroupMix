@@ -238,41 +238,17 @@ function getPlaylist(spotify_user, playlist, accessToken){
 var lastTrack;
 var lastTrackArr = [];
 var lastURI;
-
+var trackPayload;
 function parseSnapshot(body){
   snapshot_id=body.snapshot_id;
   lastTrack=body.tracks.total-1;
   lastTrackArr.push(body.tracks.total-1);
-  console.log(lastTrack);
-  clearTheLast(snapshot_id, lastTrackArr, accessToken);
-  //getURI(spotify_user, playlist, accessToken, lastTrack);
+  trackPayload=JSON.stringify([{"positions": lastTrackArr}]);
+  clearTheLast(snapshot_id, trackPayload, accessToken);
 }
 
-function getURI(spotify_user, playlist, accessToken, lastTrack){
-  var options = {
-    method: "GET",
-    url: "https://api.spotify.com/v1/users/"+spotify_user+"/playlists/"+playlist+"/tracks?limit=1&offset=" + lastTrack,
-    headers: {
-      authorization: 'Bearer ' + accessToken
-    }
-  };
-  request(options, function(error, response, body) {
-      if (error) throw new Error(error);
-      console.log("successfully called for the last tracks URI");
-      body=JSON.parse(body);
-      console.log(JSON.parse(body.items[0].track));
-      parseLastURI(body);
-});
-}
 
-function parseLastURI(body){
-  lastURI=body.items[0].track.uri;
-  console.log("got the last track's URI parsed and ready");
-  clearTheLast(snapshot_id, accessToken, lastTrackArr, lastURI);
-
-}
-
-function clearTheLast(snapshot_id, accessToken, lastTrackArr){
+function clearTheLast(snapshot_id, accessToken, trackPayload){
   var options={
     method:"DELETE",
     url:"https://api.spotify.com/v1/users/"+spotify_user+"/playlists/"+playlist+"/tracks",
@@ -280,7 +256,7 @@ function clearTheLast(snapshot_id, accessToken, lastTrackArr){
       authorization: 'Bearer ' + accessToken,
     },
     body: {
-      tracks: [{"positions": lastTrackArr}],
+      tracks: trackPayload,
       "snapshot_id": snapshot_id
       }
   };
