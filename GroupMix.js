@@ -237,6 +237,7 @@ function getPlaylist(spotify_user, playlist, accessToken){
 function parseSnapshot(body){
   snapshot_id=body.snapshot_id;
   lastTrack=body.tracks.total-1;
+  console.log(lastTrack);
   clearTheLast(snapshot_id, accessToken, lastTrack);
 }
 
@@ -249,9 +250,9 @@ function clearTheLast(snapshot_id, accessToken, lastTrack){
       "content-type": "application/json"
     },
     data:{
-      "tracks": [{"positions": lastTrack}],
+      tracks: [{"positions": lastTrack}],
       "snapshot_id": snapshot_id
-    }
+      }
   };
 
   request(options, function(error, response, body) {
