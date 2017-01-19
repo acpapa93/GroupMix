@@ -171,7 +171,7 @@ request (options, function (error, response, body){
 }
 
 function albumParse(body){
-  albumLink=body.album.image[1]["#text"];
+  albumLink=body.album.image[3]["#text"];
   console.log("got the art");
   postAlbum(albumLink);
 }
