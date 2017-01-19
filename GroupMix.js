@@ -243,9 +243,11 @@ function parseSnapshot(body){
   snapshot_id=body.snapshot_id;
   lastTrack=body.tracks.total-1;
   lastTrackArr.push(body.tracks.total-1);
-//"positions": lastTrackArr}
+
   trackPayload=JSON.stringify({
-    tracks : ([{"positions": lastTrackArr}]),
+  "tracks": {
+    "positions": lastTrackArr
+  },
   "snapshot_id": snapshot_id
 });
 
