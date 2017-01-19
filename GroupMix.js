@@ -249,8 +249,8 @@ function clearTheLast(snapshot_id, accessToken, lastTrack){
       "content-type": "application/json"
     },
     data:{
-      "tracks": [{"positions": lastTrack }],
-      "snapshot_id": snapshot_id        
+      "tracks": [{"positions": lastTrack}],
+      "snapshot_id": snapshot_id
     }
   };
 
