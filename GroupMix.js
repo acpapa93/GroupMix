@@ -259,7 +259,7 @@ function getURI(spotify_user, playlist, accessToken, lastTrack){
       if (error) throw new Error(error);
       console.log("successfully called for the last tracks URI");
       body=JSON.parse(body);
-      console.log(body);
+      console.log(JSON.parse(body.items[0].track));
       parseLastURI(body);
 });
 }
