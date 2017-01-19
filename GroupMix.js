@@ -244,7 +244,8 @@ function parseSnapshot(body){
   lastTrack=body.tracks.total-1;
   lastTrackArr.push(body.tracks.total-1);
   console.log(lastTrack);
-  getURI(spotify_user, playlist, accessToken, lastTrack);
+  clearTheLast(snapshot_id, lastTrackArr, accessToken);
+  //getURI(spotify_user, playlist, accessToken, lastTrack);
 }
 
 function getURI(spotify_user, playlist, accessToken, lastTrack){
@@ -271,7 +272,7 @@ function parseLastURI(body){
 
 }
 
-function clearTheLast(snapshot_id, accessToken, lastTrackArr, lastURI){
+function clearTheLast(snapshot_id, accessToken, lastTrackArr){
   var options={
     method:"DELETE",
     url:"https://api.spotify.com/v1/users/"+spotify_user+"/playlists/"+playlist+"/tracks",
@@ -279,7 +280,7 @@ function clearTheLast(snapshot_id, accessToken, lastTrackArr, lastURI){
       authorization: 'Bearer ' + accessToken,
     },
     body: {
-      tracks: [{"uri": lastURI, "positions": lastTrackArr}],
+      tracks: [{"positions": lastTrackArr}],
       "snapshot_id": snapshot_id
       }
   };
