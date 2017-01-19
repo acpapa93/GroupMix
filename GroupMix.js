@@ -7,7 +7,7 @@ var client_secret= process.env.client_secret,
     bot_ID=process.env.bot_id,
     spotify_user=process.env.spotify_user,
     playlist=process.env.playlist,
-    accessToken, body, parsedURI, parsedSong, parsedArtist, successMessage, authBody;
+    accessToken, body, parsedURI, parsedSong, parsedArtist, successMessage, authBody, payload;
 
 
     function respond() {
@@ -119,17 +119,20 @@ function searchTrack_Artist(artist, track) {
 }
 
 function parseItParseItRealGood(body){
-    parsedURI=JSON.stringify(body.tracks.items[0].uri);
+    parsedURI=body.tracks.items[0].uri;
     parsedArtist = body.tracks.items[0].artists[0].name;
     parsedSong = body.tracks.items[0].name;
     successMessage= "Added " + parsedSong + " by " + parsedArtist + ".";
     console.log("all parsed up -- I speak parse...l tongue. GET IT?");
+    //configure the payload
+    payload=JSON.stringify({"uris":parsedURI});
+    console.log(payload);
     auth();
 }
 
 //addy it to the playlist.
 
-function appendTrack(parsedURI, accessToken) {
+function appendTrack(parsedURI, accessToken, payload) {
     var options = {
         method: 'POST',
         url: 'https://api.spotify.com/v1/users/' + spotify_user + '/playlists/' + playlist + '/tracks/',
@@ -137,9 +140,7 @@ function appendTrack(parsedURI, accessToken) {
             authorization: 'Bearer ' + accessToken,
             'content-type': 'application/json'
         },
-        formData: {
-            "uris": parsedURI
-        }
+        formData: payload
     };
 
     request(options, function(error, response, body) {
