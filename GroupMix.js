@@ -243,7 +243,9 @@ function parseSnapshot(body){
   snapshot_id=body.snapshot_id;
   lastTrack=body.tracks.total-1;
   lastTrackArr.push(body.tracks.total-1);
-  trackPayload=JSON.stringify([{"positions": lastTrackArr}]);
+  trackPayload=JSON.stringify(
+    {"positions": lastTrackArr}
+  );
   clearTheLast(snapshot_id, trackPayload, accessToken);
 }
 
