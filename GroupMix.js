@@ -20,11 +20,10 @@ var client_secret= process.env.client_secret,
       var reqString = JSON.stringify(request.text);
       var trackTemp = reqString.slice(reqString.indexOf(":") + 1, reqString.lastIndexOf("/"));
       var track= trackTemp.replace(/ /g, '+');
+      console.log("this is the track" + track);
       var artistTemp = reqString.slice(reqString.lastIndexOf("/") + 1, reqString.lastIndexOf("\""));
       var artist= artistTemp.replace(/ /g, '+');
 
-      console.log(artist);
-      console.log(track);
 
       if (request.text && botRegexT_A.test(request.text)) {
           this.res.writeHead(200);
