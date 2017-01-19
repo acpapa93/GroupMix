@@ -34,7 +34,7 @@ var client_secret= process.env.client_secret,
           this.res.end();
       } else if (request.text && botRegexT.test(request.text)) {
           this.res.writeHead(200);
-          console.log("searching for track only!");
+          console.log("searching for track only!", track);
           //search spotify for URI based on track
           searchTrackOnly(track);
           this.res.end();
