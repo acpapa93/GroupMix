@@ -116,7 +116,7 @@ function searchTrackOnly(track) {
         parseItParseItRealGood(body);
     });
 }
-
+var blankArray=[];
 function searchTrack_Artist(artist, track) {
     var options = {
         method: 'GET',
@@ -126,7 +126,7 @@ function searchTrack_Artist(artist, track) {
     request(options, function(error, response, body) {
         if (error) {
           console.log (error);
-        } else if (JSON.parse(body.tracks.total===0)){
+        } else if (JSON.parse(body.tracks.items==blankArray)){
           message="No results found, try searching with only a track name";
           postAlbum(message);
         }
