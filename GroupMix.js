@@ -9,7 +9,7 @@ var client_secret = process.env.client_secret,
     playlist = process.env.playlist,
     lastFMAPI=process.env.lastFMAPIKey,
     accessToken, body, parsedURI, parsedSong, parsedArtist, parsedAlbum,
-    successMessage, authBody, payload, albumLink;
+    successMessage, authBody, payload, albumLink, snapshot_id, lastTrack;
 
 
 function respond() {
@@ -47,6 +47,12 @@ function respond() {
         //search spotify for URI based on track
         searchTrackOnly(track);
         this.res.end();
+    } else if (request.test && botRegex_clear.test(request.text)){
+      this.res.writeHead(200);
+      console.log("starting process to delete last track");
+      //start clearing the last track.
+
+      this.res.end();
     } else {
         console.log("That's not music.");
         this.res.writeHead(200);
@@ -175,6 +181,86 @@ function albumParse(body){
   console.log("got the art");
   postAlbum(albumLink);
 }
+
+//-------module for clearing the last song from the list-----------
+
+function auth4Clear() {
+    var options = {
+        method: 'POST',
+        url: 'https://accounts.spotify.com/api/token',
+        headers: {
+            'postman-token': '76504f58-bc64-b4fd-0bf0-1f81a055cb18',
+            'cache-control': 'no-cache',
+            'content-type': 'application/x-www-form-urlencoded',
+            authorization: 'Basic ' + client_secret
+        },
+        form: {
+            grant_type: 'refresh_token',
+            refresh_token: refreshToken
+        }
+    };
+
+    request(options, function(error, response, body) {
+        if (error) throw new Error(error);
+        console.log(JSON.parse(body));
+        body = JSON.parse(body);
+        auth4ClearParse(body);
+
+    });
+}
+
+function auth4ClearParse(body) {
+    accessToken = body.access_token;
+    console.log(body.access_token);
+    getPlaylist(spotify_user, playlsit, accessToken);
+}
+
+function getPlaylist(spotify_user, playlist, accessToken){
+  var options= {
+    method: "GET",
+    url: "https://api.spotify.com/v1/users/"+spotify_user+"/playlists/"+playlist,
+    headers:{
+        authorization: 'Bearer ' + accessToken,
+    }
+  };
+
+  request(options, function(error, response, body) {
+      if (error) throw new Error(error);
+      console.log("Got the snapshot ID.");
+      body=JSON.parse(body);
+      parseSnapshot(body);
+  });
+}
+
+function parseSnapshot(body){
+  snapshot_id=body.snapshot_id;
+  lastTrack=body.tracks.total-1;
+  clearTheLast(snapshot_id, accessToken, lastTrack);
+}
+
+function clearTheLast(snapshot_id, accessToken, lastTrack){
+  var options={
+    method:"DELETE",
+    url:"https://api.spotify.com/v1/users/"+spotify_user+"/playlists/"+playlist+"/tracks",
+    headers:{
+      authorization: 'Bearer ' + accessToken,
+      "content-type": "application/json"
+    },
+    data:{
+      "positions": lastTrack,
+      "snapshot_id": snapshot_id
+    }
+  };
+
+  request(options, function(error, response, body) {
+      if (error) throw new Error(error);
+      console.log("deleted the lastone");
+      console.log(body);
+      successMessage="Deleted the last song for you.";
+      postMessage(successMessage);
+  });
+}
+//-------------------------------------
 
 function postMessage(successMessage) {
     var botResponse, options, body, botReq;
