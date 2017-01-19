@@ -264,7 +264,9 @@ function clearTheLast(snapshot_id, accessToken, trackPayload){
   };
 
   request(options, function(error, response, body) {
-      if (error) throw new Error(error);
+      if (error) {
+          console.log(error);
+      }
       console.log("deleted the lastone");
       console.log(body);
       message="Deleted the last song for you.";
