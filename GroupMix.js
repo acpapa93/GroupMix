@@ -119,7 +119,7 @@ function searchTrack_Artist(artist, track) {
 }
 
 function parseItParseItRealGood(body){
-    parsedURI = encodeURI(body.tracks.items[0].uri);
+    parsedURI = body.tracks.items[0].uri;
     parsedArtist = body.tracks.items[0].artists[0].name;
     parsedSong = body.tracks.items[0].name;
     successMessage= "Added " + parsedSong + " by " + parsedArtist + ".";
@@ -130,17 +130,13 @@ function parseItParseItRealGood(body){
 
 //addy it to the playlist.
 
-function appendTrack(parsedURI, accessToken, payload) {
+function appendTrack(parsedURI, accessToken) {
     var options = {
         method: 'POST',
-        url: 'https://api.spotify.com/v1/users/' + spotify_user + '/playlists/' + playlist + '/tracks/',
+        url: 'https://api.spotify.com/v1/users/' + spotify_user + '/playlists/' + playlist + '/tracks?uris='+parsedURI,
         headers: {
             authorization: 'Bearer ' + accessToken,
-            'content-type': 'application/json'
-        },
-        form: JSON.stringify({
-          "uris": parsedURI
-        })
+        }
     };
 
     request(options, function(error, response, body) {
