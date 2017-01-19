@@ -7,8 +7,8 @@ var client_secret = process.env.client_secret,
     bot_ID = process.env.bot_id,
     spotify_user = process.env.spotify_user,
     playlist = process.env.playlist,
-    lastFMAPI=process.env.lastFMAPIKey,
-    andrew=process.env.andrew,
+    lastFMAPI = process.env.lastFMAPIKey,
+    andrew = process.env.andrew,
     accessToken, body, parsedURI, parsedSong, parsedArtist, parsedAlbum,
     successMessage, authBody, payload, albumLink, snapshot_id, lastTrack;
 
@@ -21,7 +21,7 @@ function respond() {
         botRegexT_A = /^\/add:.+\/.+$/,
         //command would be /add:song
         botRegexT = /^\/add:.+[^\/]$/,
-        botRegexClear=/^\/clear$/;
+        botRegexClear = /^\/clear$/;
 
     if (request.text && botRegexT_A.test(request.text)) {
         this.res.writeHead(200);
@@ -49,12 +49,12 @@ function respond() {
         //search spotify for URI based on track
         searchTrackOnly(track);
         this.res.end();
-    } else if (botRegexClear.test(request.text) && request.name==andrew){
-      this.res.writeHead(200);
-      console.log("starting process to delete last track");
-      //start clearing the last track.
-      auth4Clear();
-      this.res.end();
+    } else if (botRegexClear.test(request.text) && request.name == andrew) {
+        this.res.writeHead(200);
+        console.log("starting process to delete last track");
+        //start clearing the last track.
+        auth4Clear();
+        this.res.end();
     } else {
         console.log("That's not music.");
         this.res.writeHead(200);
@@ -136,7 +136,7 @@ function parseItParseItRealGood(body) {
     parsedURI = body.tracks.items[0].uri;
     parsedArtist = body.tracks.items[0].artists[0].name;
     parsedSong = body.tracks.items[0].name;
-    parsedAlbum=body.tracks.items[0].album.name;
+    parsedAlbum = body.tracks.items[0].album.name;
     successMessage = "Added " + parsedSong + " by " + parsedArtist + ".";
     console.log("all parsed up -- I speak parse...l tongue. GET IT?");
     //configure the payload
@@ -163,26 +163,27 @@ function appendTrack(parsedURI, accessToken) {
 }
 
 //hit lastFM to get album image
-function getAlbumArt(parsedArtist, parsedAlbum){
-  var options = {
-    method:"POST",
-    url: "https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=" + lastFMAPI + "&artist=" +parsedArtist+ "&album="+ parsedAlbum + "&format=json"
-  };
+function getAlbumArt(parsedArtist, parsedAlbum) {
+    var options = {
+        method: "POST",
+        url: "https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=" + lastFMAPI + "&artist=" + parsedArtist + "&album=" + parsedAlbum + "&format=json"
+    };
 
-request (options, function (error, response, body){
-    if (error) {
-      console.log(error);
-      //skip the album artwork then.
-      postMessage(successMessage);}
-      body=JSON.parse(body);
-      albumParse(body);
-});
+    request(options, function(error, response, body) {
+        if (error) {
+            console.log(error);
+            //skip the album artwork then.
+            postMessage(successMessage);
+        }
+        body = JSON.parse(body);
+        albumParse(body);
+    });
 }
 
-function albumParse(body){
-  message=body.album.image[3]["#text"];
-  console.log("got the art");
-  postAlbum(message);
+function albumParse(body) {
+    message = body.album.image[3]["#text"];
+    console.log("got the art");
+    postAlbum(message);
 }
 
 //-------module for clearing the last song from the list-----------
@@ -218,63 +219,61 @@ function auth4ClearParse(body) {
     getPlaylist(spotify_user, playlist, accessToken);
 }
 
-function getPlaylist(spotify_user, playlist, accessToken){
-  var options= {
-    method: "GET",
-    url: "https://api.spotify.com/v1/users/"+spotify_user+"/playlists/"+playlist,
-    headers:{
-        authorization: 'Bearer ' + accessToken,
-    }
-  };
+function getPlaylist(spotify_user, playlist, accessToken) {
+    var options = {
+        method: "GET",
+        url: "https://api.spotify.com/v1/users/" + spotify_user + "/playlists/" + playlist,
+        headers: {
+            authorization: 'Bearer ' + accessToken,
+        }
+    };
 
-  request(options, function(error, response, body) {
-      if (error) throw new Error(error);
-      console.log("Got the snapshot ID.");
-      body=JSON.parse(body);
-      parseSnapshot(body);
-  });
+    request(options, function(error, response, body) {
+        if (error) throw new Error(error);
+        console.log("Got the snapshot ID.");
+        body = JSON.parse(body);
+        parseSnapshot(body);
+    });
 }
 
 var lastTrack;
 var lastTrackArr = [];
 var lastURI;
-var trackPayload;
-function parseSnapshot(body){
-  snapshot_id=body.snapshot_id;
-  lastTrack=body.tracks.total-1;
-  lastTrackArr.push(body.tracks.total-1);
 
-  trackPayload=JSON.stringify({
-  "tracks": {
-    "positions": lastTrackArr
-  },
-  "snapshot_id": snapshot_id
-});
+function parseSnapshot(body) {
+    snapshot_id = body.snapshot_id;
+    lastTrack = body.tracks.total - 1;
+    lastTrackArr.push(body.tracks.total - 1);
 
-  clearTheLast(snapshot_id, trackPayload, accessToken);
+    clearTheLast(snapshot_id, lastTrackArr, accessToken);
 }
 
 
-function clearTheLast(snapshot_id, accessToken, trackPayload){
-  var options={
-    method:"DELETE",
-    url:"https://api.spotify.com/v1/users/"+spotify_user+"/playlists/"+playlist+"/tracks",
-    headers:{
-      authorization: 'Bearer ' + accessToken,
-    },
-    body: trackPayload
-  };
+function clearTheLast(snapshot_id, lastTrackArr, accessToken) {
+    var options = {
+        method: "DELETE",
+        url: "https://api.spotify.com/v1/users/" + spotify_user + "/playlists/" + playlist + "/tracks",
+        headers: {
+            authorization: 'Bearer ' + accessToken,
+        },
+        body: {
+            "tracks": {
+                "positions": lastTrackArr
+            },
+            "snapshot_id": snapshot_id
+        }
+    };
 
 
-  request(options, function(error, response, body) {
-      if (error) {
-          console.log(error);
-      }
-      console.log("deleted the lastone");
-      console.log(body);
-      message="Deleted the last song for you.";
-      postAlbum(message);
-  });
+    request(options, function(error, response, body) {
+        if (error) {
+            console.log(error);
+        }
+        console.log("deleted the lastone");
+        console.log(body);
+        message = "Deleted the last song for you.";
+        postAlbum(message);
+    });
 }
 //-------------------------------------
 
