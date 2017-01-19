@@ -279,8 +279,8 @@ function clearTheLast(snapshot_id, accessToken, lastTrackArr, lastURI){
       authorization: 'Bearer ' + accessToken,
       "content-type": "application/json"
     },
-    data:{
-      tracks: [{"uri": lastURI, "positions": lastTrackArr}],
+    data={
+      "tracks": [{"uri": lastURI, "positions": lastTrackArr}],
       "snapshot_id": snapshot_id
       }
   };
